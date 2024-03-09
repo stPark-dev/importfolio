@@ -1,0 +1,52 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { experiencesData } from "@/lib/data";
+import SectionHeading from "./SectionHeading";
+import {
+  VerticalTimeline,
+  VerticalTimelineElement,
+} from "react-vertical-timeline-component";
+import "react-vertical-timeline-component/style.min.css";
+import { SchoolIcon, StarIcon, WorkflowIcon } from "lucide-react";
+
+export default function Experience() {
+  return (
+    <>
+      <section id="whoami" className="my-10">
+        <SectionHeading>딸끄멍</SectionHeading>
+        <VerticalTimeline lineColor="#A3A3A3">
+          {experiencesData.map((item, index) => (
+            <React.Fragment key={index}>
+              <VerticalTimelineElement
+                visible={true}
+                contentStyle={{
+                  background: "#f3f4f6",
+                  boxShadow: "none",
+                  border: "1px solid rgba(0, 0, 0, 0.05)",
+                  textAlign: "left",
+                  padding: "1.3rem 2rem",
+                }}
+                contentArrowStyle={{
+                  borderRight: "0.4rem solid #9ca3af",
+                }}
+                date={item.date}
+                icon={item.icon}
+                iconStyle={{
+                  background: "white",
+                  fontSize: "1.5rem",
+                }}
+              >
+                <h3 className="font-semibold capitalize">{item.title}</h3>
+                <p className="font-normal !mt-0">{item.location}</p>
+                <p className="!mt-1 !font-normal text-gray-700 dark:text-white/75">
+                  {item.description}
+                </p>
+              </VerticalTimelineElement>
+            </React.Fragment>
+          ))}
+        </VerticalTimeline>
+      </section>
+    </>
+  );
+}
