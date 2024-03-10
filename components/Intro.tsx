@@ -12,10 +12,10 @@ const Intro = () => {
           alt="intro image example"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-5xl font-bold text-amber-600/90">[ " stPark " ]</h1>
-          <p className="text-2xl text-yellow-50/90">
-            The Consistent Developer
-          </p>
+          <h1 className="text-5xl font-bold text-amber-600/90">
+            [ &quot; stPark &quot; ]
+          </h1>
+          <p className="text-2xl text-yellow-50/90">The Consistent Developer</p>
         </div>
       </div>
       {/* <div className="relative w-full max-h-96">
