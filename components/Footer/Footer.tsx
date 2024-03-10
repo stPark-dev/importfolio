@@ -3,20 +3,18 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <>
-      <Image
-        alt="Mask"
-        src="/banner.png"
-        width={1440}
-        height={173}
-        style={{
-          opacity: 1,
-          zIndex: 0,
-          width: "100vw",
-          height: "auto",
-          bottom: "20px",
-        }}
-      />
-      <div style={{ fontSize: "100px", fontWeight: "bold" }}>Footer</div>
+      <div className="relative w-full">
+        <Image
+          alt="Mask"
+          src="/banner.png"
+          layout="responsive"
+          width={1440}
+          height={173}
+          quality={100}
+          className="z-0"
+        />
+      </div>
+      <div className="text-8xl md:text-9xl font-bold text-center">Footer</div>
     </>
   );
 };

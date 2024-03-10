@@ -14,20 +14,14 @@ export default function Home() {
         <Profile />
         <Experience />
         {/* My Project 섹션 추가 */}
-        <div id="project" className="my-5" style={{ fontSize: "100px" }}>
-          {" "}
+        <div id="project" className="my-5 text-3xl md:text-5xl">
           <h2>My Project</h2>
-          <p>This is the project section.</p>
+          <p className="text-base md:text-xl">This is the project section.</p>
         </div>
         {/* Contact 섹션 추가 */}
-        <div
-          id="contact"
-          className="my-5"
-          style={{ fontSize: "200px" }}
-        >
-          {" "}
+        <div id="contact" className="my-5 text-4xl md:text-6xl">
           <h2>Contact</h2>
-          <p>This is contact section.</p>
+          <p className="text-base md:text-xl">This is the contact section.</p>
         </div>
       </main>
       <FloatingButton />

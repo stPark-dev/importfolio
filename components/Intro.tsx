@@ -3,7 +3,7 @@ import Image from "next/image";
 const Intro = () => {
   return (
     <>
-      <div className="relative w-screen h-[40vh]">
+      <div className="relative w-screen h-[40vh] md:h-[50vh]">
         <Image
           className="object-cover object-center opacity-80"
           src="/intro.jpg"
@@ -11,30 +11,15 @@ const Intro = () => {
           fill
           alt="intro image example"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-5xl font-bold text-amber-600/90">
-            [ &quot; stPark &quot; ]
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+          <h1 className="text-3xl md:text-5xl font-bold text-amber-600/90 mb-4 md:mb-8">
+            [&quot; stPark &quot;]
           </h1>
-          <p className="text-2xl text-yellow-50/90">The Consistent Developer</p>
+          <p className="text-xl md:text-2xl" style={{color: "#FFF9CB"}}>
+            The Consistent Developer
+          </p>
         </div>
       </div>
-      {/* <div className="relative w-full max-h-96">
-        <Image
-          src="/intro.jpg"
-          sizes="500px"
-          fill
-          style={{
-            objectFit: "contain",
-          }}
-          alt="intro"
-          className="opacity-70"
-        />
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <p className="text-white text-4xl font-bold">
-            Welcome to Our Website
-          </p>{" "}
-        </div>
-      </div> */}
     </>
   );
 };
