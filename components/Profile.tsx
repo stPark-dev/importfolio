@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-row items-center justify-center my-10">
       <div className="profile-container">
         <Image
           src="/profile.png"
@@ -12,7 +12,7 @@ const Profile = () => {
           className="profile-image"
         />
       </div>
-      <span style={{ fontSize: "50px" }}>아무 의미없는 문자열의 연속</span>
+      <span className="mx-5" style={{ fontSize: "50px" }}>카드 디자인 들어갈 공간</span>
     </div>
   );
 };

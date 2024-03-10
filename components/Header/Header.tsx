@@ -15,8 +15,8 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="full-container py-10">
-        <nav className="space-x-5 flex">
+      <header className="full-container py-10 w-full" style={{backgroundColor: "#ffffff"}}>
+        <nav className="space-x-5 flex items-center justify-center">
           <button onClick={() => scrollTo("top")}>
             <div className="hover:bg-gray-400 rounded py-1 px-2">Home</div>
           </button>

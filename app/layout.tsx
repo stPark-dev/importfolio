@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
       <html lang="en" className={poppins.className}>
-        <body className="flex flex-col items-center px-4">
+        <body className="flex flex-col items-center">
           {children}
         </body>
       </html>

@@ -2,6 +2,7 @@ import Experience from "@/components/Experience";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
+import Intro from "@/components/Intro";
 import Profile from "@/components/Profile";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
     <>
       <Header />
       <main>
+        <Intro />
         <Profile />
         <Experience />
         {/* My Project 섹션 추가 */}
