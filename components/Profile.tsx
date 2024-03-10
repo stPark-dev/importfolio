@@ -20,22 +20,22 @@ const Profile = () => {
         />
       </div>
       <div className={`${profileClassName} bg-white shadow-lg rounded-lg p-4 my-4`}>
-        <div className="flex items-center justify-center text-lg">
+        <div className="flex items-center justify-center text-lg text-center">
           <User className="mr-2" /> 박성태
         </div>
-        <div className="flex items-center justify-center text-lg">
+        <div className="flex items-center justify-center text-lg text-center">
           <Mail className="mr-2" /> dmc6618@gmail.com
         </div>
-        <div className="flex items-center justify-center text-lg">
+        <div className="flex items-center justify-center text-lg text-center">
           <MapPin className="mr-2" /> 서울
         </div>
-        <div className="flex items-center justify-center text-lg">
+        <div className="flex items-center justify-center text-lg text-center">
           <Phone className="mr-2" /> 010-6335-6618
         </div>
-        <div className="flex items-center justify-center text-lg">
-          <Pencil className="mr-2" /> 국민대학교(경영정보 정보시스템전공)
+        <div className="flex items-center justify-center text-lg text-center">
+          <Pencil className="mr-2" /> 국민대학교<br />(경영정보 정보시스템전공)
         </div>
-        <div className="flex items-center justify-center text-lg">
+        <div className="flex items-center justify-center text-lg text-center">
           <Cake className="mr-2" /> 1993. 01. 10
         </div>
       </div>
