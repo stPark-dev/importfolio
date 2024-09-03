@@ -39,7 +39,7 @@ const Intro = () => {
             <WavyText
               text='[" Developer Who Builds with Communication "]'
               duration={0.03}
-              className={`text-xl md:text-2xl font-bold text-purple-600 bg-slate-500/90 ${ubuntu.className} `}
+              className={`text-xl md:text-2xl font-bold text-white bg-slate-500 ${ubuntu.className} `}
               replay={true}
             />
           )}

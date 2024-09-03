@@ -1,3 +1,5 @@
+"use client"
+
 import Experience from "@/components/Experience";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer/Footer";
