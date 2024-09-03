@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Experience from "@/components/Experience";
 import FloatingButton from "@/components/FloatingButton";
