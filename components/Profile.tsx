@@ -1,7 +1,7 @@
-import Image from "next/image";
-import { Orbit,Gowun_Dodum } from "next/font/google";
-import { twMerge } from "tailwind-merge";
 import { Cake, Mail, MapPin, Pencil, Phone, User } from "lucide-react";
+import { Gowun_Dodum, Orbit } from "next/font/google";
+import Image from "next/image";
+import { twMerge } from "tailwind-merge";
 
 const gowun = Gowun_Dodum({ weight: "400", subsets: ["latin"] });
 
@@ -33,7 +33,9 @@ const Profile = () => {
           <Phone className="mr-2" /> 010-6335-6618
         </div>
         <div className="flex items-center justify-center text-lg text-center">
-          <Pencil className="mr-2" /> 국민대학교<br />(경영정보 정보시스템전공)
+          <Pencil className="mr-2" /> 국민대학교
+          <br />
+          (경영정보 정보시스템전공)
         </div>
         <div className="flex items-center justify-center text-lg text-center">
           <Cake className="mr-2" /> 1993. 01. 10

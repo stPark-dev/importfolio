@@ -1,10 +1,7 @@
-import React from "react";
 import { Database } from "lucide-react";
 import { Palette } from "lucide-react";
 import { GraduationCap } from "lucide-react";
-// import corpcommentImg from "@/public/corpcomment.png";
-// import rmtdevImg from "@/public/rmtdev.png";
-// import wordanalyticsImg from "@/public/wordanalytics.png";
+import React from "react";
 
 export const links = [
   {
@@ -61,23 +58,22 @@ export const experiencesData = [
 ] as const;
 
 export const skillsData = [
-  "HTML",
-  "CSS",
+  "Java",
+  "Kotlin",
   "JavaScript",
   "TypeScript",
+  "Node.js",
+  "Vue.js",
   "React",
   "Next.js",
-  "Node.js",
+  "Recoil",
   "Git",
+  "MUI",
   "Tailwind",
   "Prisma",
   "MongoDB",
-  "Redux",
-  "GraphQL",
-  "Apollo",
-  "Express",
+  "Opensearch",
   "PostgreSQL",
-  "Python",
-  "Django",
+  "Oracle",
   "Framer Motion",
 ] as const;

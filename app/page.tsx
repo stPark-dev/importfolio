@@ -13,12 +13,10 @@ export default function Home() {
         <Intro />
         <Profile />
         <Experience />
-        {/* My Project 섹션 추가 */}
         <div id="project" className="my-5 text-3xl md:text-5xl">
           <h2>My Project</h2>
           <p className="text-base md:text-xl">This is the project section.</p>
         </div>
-        {/* Contact 섹션 추가 */}
         <div id="contact" className="my-5 text-4xl md:text-6xl">
           <h2>Contact</h2>
           <p className="text-base md:text-xl">This is the contact section.</p>
