@@ -30,7 +30,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center my-10">
+    <div id="whoami" className="flex flex-col items-center justify-center my-10">
       <motion.div
         className="profile-container relative"
         onMouseEnter={() => setIsHovered(true)}

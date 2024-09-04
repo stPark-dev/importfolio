@@ -16,7 +16,7 @@ export default function Experience() {
 
   return (
     <>
-      <section id="whoami" className="my-10">
+      <section id="career" className="my-10">
         <SectionHeading>My Career</SectionHeading>
         {isClient && (
           <Chrono

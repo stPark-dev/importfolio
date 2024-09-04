@@ -30,14 +30,14 @@ const Header: React.FC = () => {
               Who am I
             </div>
           </button>
-          <button onClick={() => scrollTo("project")}>
+          <button onClick={() => scrollTo("career")}>
             <div className="hover:bg-gray-400 hover:text-white rounded py-1 px-1 md:px-2 text-black">
-              My Project
+              My Career
             </div>
           </button>
-          <button onClick={() => scrollTo("contact")}>
+          <button onClick={() => scrollTo("skill")}>
             <div className="hover:bg-gray-400 hover:text-white rounded py-1 px-1 md:px-2 text-black">
-              Contact
+              My Skill
             </div>
           </button>
         </nav>
