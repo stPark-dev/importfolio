@@ -32,7 +32,7 @@ const Profile = () => {
         }}
       >
         <Image
-          src="/profile.png"
+          src="/profile_eye.png"
           alt="profile"
           width={300}
           height={200}
