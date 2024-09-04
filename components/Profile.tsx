@@ -1,6 +1,10 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Cake, Mail, MapPin, Pencil, Phone, User } from "lucide-react";
-import { Gowun_Dodum, Orbit } from "next/font/google";
+import { Gowun_Dodum } from "next/font/google";
 import Image from "next/image";
+import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 const gowun = Gowun_Dodum({ weight: "400", subsets: ["latin"] });
@@ -8,9 +12,23 @@ const gowun = Gowun_Dodum({ weight: "400", subsets: ["latin"] });
 const profileClassName = twMerge("grid gap-20 grid-cols-1 md:grid-cols-3", gowun.className);
 
 const Profile = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="flex flex-col items-center justify-center my-10">
-      <div className="profile-container">
+      <motion.div
+        className="profile-container"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        animate={{
+          y: isHovered ? -10 : 0,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 200,
+          damping: 10,
+        }}
+      >
         <Image
           src="/profile.png"
           alt="profile"
@@ -18,7 +36,7 @@ const Profile = () => {
           height={200}
           className="profile-image"
         />
-      </div>
+      </motion.div>
       <div className={`${profileClassName} bg-white shadow-lg rounded-lg p-4 my-4`}>
         <div className="flex items-center justify-center text-lg text-center">
           <User className="mr-2" /> 박성태
