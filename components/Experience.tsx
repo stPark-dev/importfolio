@@ -20,11 +20,23 @@ export default function Experience() {
         <SectionHeading>My Career</SectionHeading>
         {isClient && (
           <Chrono
+            theme={{
+              primary: "#BB9AF7",
+              secondary: "333333",
+              cardBgColor: "#FFFFFF",
+              titleColor: "black",
+              titleColorActive: "#BB9AF7",
+              subtitleColor: "white",
+            }}
             disableToolbar={true}
             items={experiencesData}
             mode="VERTICAL_ALTERNATING"
             itemWidth={150}
-          />
+          >
+            <div className="chrono-icons">
+              <img src="https://img.icons8.com/ios-filled/100/000000/twitter.png" alt="twitter" />
+            </div>
+          </Chrono>
         )}
       </section>
     </>
