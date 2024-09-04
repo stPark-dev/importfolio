@@ -11,10 +11,7 @@ import Eye from "./Eye";
 
 const gowun = Gowun_Dodum({ weight: "400", subsets: ["latin"] });
 
-const profileClassName = twMerge(
-  "grid gap-20 grid-cols-1 md:grid-cols-3",
-  gowun.className
-);
+const profileClassName = twMerge("grid gap-20 grid-cols-1 md:grid-cols-3", gowun.className);
 
 const Profile = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -75,9 +72,7 @@ const Profile = () => {
           />
         </div>
       </motion.div>
-      <div
-        className={`${profileClassName} bg-white shadow-lg rounded-lg p-4 my-4`}
-      >
+      <div className={`${profileClassName} bg-white shadow-lg rounded-lg p-4 my-4`}>
         <div className="flex items-center justify-center text-lg text-center">
           <User className="mr-2" /> 박성태
         </div>
