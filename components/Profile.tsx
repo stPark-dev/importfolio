@@ -20,7 +20,11 @@ const Profile = () => {
         className="profile-container"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        animate={isHovered ? { y: [0, -10, 0] } : { y: 0 }}
+        animate={
+          isHovered
+            ? { y: [0, -10, 0], boxShadow: "0px 20px 30px rgba(0, 0, 0, 0.3)" }
+            : { y: 0, boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.1)" }
+        }
         transition={{
           duration: 1,
           ease: "easeInOut",
