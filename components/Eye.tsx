@@ -1,13 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 
-const Eye = ({ mouseX, mouseY, eyeX, eyeY, eyeRadius }: any) => {
-  const deltaX = mouseX - eyeX;
-  const deltaY = mouseY - eyeY;
+const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius }: any) => {
+  const eyeRef = useRef<HTMLDivElement>(null);
+  const [eyePosition, setEyePosition] = useState({
+    x: initialEyeX,
+    y: initialEyeY,
+  });
+
+  useEffect(() => {
+    if (eyeRef.current) {
+      const rect = eyeRef.current.getBoundingClientRect();
+      setEyePosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      });
+    }
+  }, []);
+
+  const deltaX = mouseX - eyePosition.x;
+  const deltaY = mouseY - eyePosition.y;
   const angle = Math.atan2(deltaY, deltaX);
-  // 동공이 눈의 경계 내에서만 이동하도록 제한
-  const maxDistance = eyeRadius - 10; // 동공의 최대 이동 범위 (눈알 크기 - 동공 크기)
+
+  const maxDistance = eyeRadius - 12;
   const distance = Math.min(Math.sqrt(deltaX ** 2 + deltaY ** 2), maxDistance);
 
   const moveX = Math.cos(angle) * distance;
@@ -15,6 +32,7 @@ const Eye = ({ mouseX, mouseY, eyeX, eyeY, eyeRadius }: any) => {
 
   return (
     <motion.div
+      ref={eyeRef}
       className="eye"
       style={{
         width: eyeRadius * 2,
@@ -23,8 +41,8 @@ const Eye = ({ mouseX, mouseY, eyeX, eyeY, eyeRadius }: any) => {
         borderRadius: "50%",
         border: "2px solid black",
         position: "absolute",
-        left: eyeX - eyeRadius,
-        top: eyeY - eyeRadius,
+        left: initialEyeX - eyeRadius,
+        top: initialEyeY - eyeRadius,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -33,11 +51,10 @@ const Eye = ({ mouseX, mouseY, eyeX, eyeY, eyeRadius }: any) => {
       <motion.div
         className="pupil"
         style={{
-          width: 10,
-          height: 10,
+          width: 11,
+          height: 11,
           backgroundColor: "black",
           borderRadius: "50%",
-          position: "relative",
         }}
         animate={{
           x: moveX,
@@ -45,8 +62,8 @@ const Eye = ({ mouseX, mouseY, eyeX, eyeY, eyeRadius }: any) => {
         }}
         transition={{
           type: "spring",
-          stiffness: 300,
-          damping: 20,
+          stiffness: 1000,
+          damping: 30,
         }}
       />
     </motion.div>

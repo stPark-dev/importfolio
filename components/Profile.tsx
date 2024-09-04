@@ -11,7 +11,10 @@ import Eye from "./Eye";
 
 const gowun = Gowun_Dodum({ weight: "400", subsets: ["latin"] });
 
-const profileClassName = twMerge("grid gap-20 grid-cols-1 md:grid-cols-3", gowun.className);
+const profileClassName = twMerge(
+  "grid gap-20 grid-cols-1 md:grid-cols-3",
+  gowun.className
+);
 
 const Profile = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -32,7 +35,7 @@ const Profile = () => {
   return (
     <div className="flex flex-col items-center justify-center my-10">
       <motion.div
-        className="profile-container"
+        className="profile-container relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         animate={
@@ -46,31 +49,35 @@ const Profile = () => {
           repeat: isHovered ? Infinity : 0,
         }}
       >
-        <div>
+        <div className="relative">
+          <div className="absolute z-0 inset-0 pointer-events-none">
+            <Eye
+              mouseX={mousePosition.x}
+              mouseY={mousePosition.y}
+              initialEyeX={117}
+              initialEyeY={153}
+              eyeRadius={15}
+            />
+            <Eye
+              mouseX={mousePosition.x}
+              mouseY={mousePosition.y}
+              initialEyeX={173}
+              initialEyeY={153}
+              eyeRadius={15}
+            />
+          </div>
           <Image
             src="/profile_eye.png"
             alt="profile"
             width={300}
             height={200}
-            className="profile-image"
-          />
-          <Eye
-            mouseX={mousePosition.x}
-            mouseY={mousePosition.y}
-            eyeX={115}
-            eyeY={100}
-            eyeRadius={15}
-          />
-          <Eye
-            mouseX={mousePosition.x}
-            mouseY={mousePosition.y}
-            eyeX={175}
-            eyeY={100}
-            eyeRadius={15}
+            className="relative z-10 profile-image"
           />
         </div>
       </motion.div>
-      <div className={`${profileClassName} bg-white shadow-lg rounded-lg p-4 my-4`}>
+      <div
+        className={`${profileClassName} bg-white shadow-lg rounded-lg p-4 my-4`}
+      >
         <div className="flex items-center justify-center text-lg text-center">
           <User className="mr-2" /> 박성태
         </div>
