@@ -1,6 +1,18 @@
 "use client";
 
-import { Pen } from "lucide-react";
+import {
+  Building,
+  Car,
+  Droplets,
+  Handshake,
+  Home,
+  Laptop,
+  RefreshCcw,
+  ShieldPlus,
+  Syringe,
+  Trees,
+  UserSearch,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import { Chrono } from "react-chrono";
@@ -37,7 +49,20 @@ export default function Experience() {
             itemWidth={150}
           >
             <div className="chrono-icons">
-              <Pen className="w-5 h-5" />
+              <Syringe />
+              <Handshake />
+              <Handshake />
+              <RefreshCcw />
+              <Trees />
+              <Laptop />
+              <Car />
+              <Trees />
+              <Home />
+              <UserSearch />
+              <ShieldPlus />
+              <Building />
+              <Droplets />
+              <Building />
             </div>
           </Chrono>
         )}

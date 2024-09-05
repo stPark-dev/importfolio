@@ -51,8 +51,8 @@ const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius, isHovered }:
       <motion.div
         className="pupil"
         style={{
-          width: 11,
-          height: 11,
+          width: 10,
+          height: 10,
           backgroundColor: "black",
           borderRadius: "50%",
         }}
