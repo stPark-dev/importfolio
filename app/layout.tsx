@@ -32,6 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={poppins.className}>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className="flex flex-col items-center">{children}</body>
     </html>
   );
