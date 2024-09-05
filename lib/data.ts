@@ -230,22 +230,84 @@ export const experiencesData = [
 ] as const;
 
 export const skillsData = [
-  "Java",
-  "Kotlin",
-  "JavaScript",
-  "TypeScript",
-  "Node.js",
-  "Vue.js",
-  "React",
-  "Next.js",
-  "Recoil",
-  "Git",
-  "MUI",
-  "Tailwind",
-  "Prisma",
-  "MongoDB",
-  "Opensearch",
-  "PostgreSQL",
-  "Oracle",
-  "Framer Motion",
+  {
+    category: "Programming Language",
+    name: "Java",
+    usedIn: "Metabuild",
+  },
+  {
+    category: "Programming Language",
+    name: "Kotlin",
+    usedIn: "Myself",
+  },
+  {
+    category: "Programming Language",
+    name: "JavaScript",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Programming Language",
+    name: "TypeScript",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Backend Framework/Runtime",
+    name: "Node.js",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Frontend Framework/Library",
+    name: "Vue.js",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Frontend Framework/Library",
+    name: "React",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Frontend Framework/Library",
+    name: "Next.js",
+    usedIn: "Gractor",
+  },
+  {
+    category: "State Management",
+    name: "Recoil",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Version Control",
+    name: "Git",
+    usedIn: "Gractor",
+  },
+  {
+    category: "UI/CSS Framework",
+    name: "MUI",
+    usedIn: "Gractor",
+  },
+  {
+    category: "UI/CSS Framework",
+    name: "Tailwind",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Database",
+    name: "Oracle",
+    usedIn: "Metabuild",
+  },
+  {
+    category: "Database",
+    name: "PostgreSQL",
+    usedIn: "Metabuild",
+  },
+  {
+    category: "Database",
+    name: "Opensearch",
+    usedIn: "Gractor",
+  },
+  {
+    category: "Animation Library",
+    name: "Framer Motion",
+    usedIn: "Gractor",
+  },
 ] as const;
