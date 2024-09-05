@@ -1,5 +1,6 @@
 "use client";
 
+import { Pen } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import { Chrono } from "react-chrono";
@@ -26,7 +27,9 @@ export default function Experience() {
               cardBgColor: "#FFFFFF",
               titleColor: "black",
               titleColorActive: "#BB9AF7",
+              cardTitleColor: "black",
               subtitleColor: "white",
+              iconBackgroundColor: "#f0f0f0",
             }}
             disableToolbar={true}
             items={experiencesData}
@@ -34,7 +37,7 @@ export default function Experience() {
             itemWidth={150}
           >
             <div className="chrono-icons">
-              <img src="https://img.icons8.com/ios-filled/100/000000/twitter.png" alt="twitter" />
+              <Pen className="w-5 h-5" />
             </div>
           </Chrono>
         )}

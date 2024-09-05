@@ -38,9 +38,9 @@ export const experiencesData = [
     cardDetailedText:
       "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
     media: {
-      name: "dunkirk beach",
+      name: "career 01",
       source: {
-        url: "https://i2-prod.mirror.co.uk/incoming/article10847802.ece/ALTERNATES/s810/PAY-Dunkirk-in-colour.jpg",
+        url: "career1.jpg",
       },
       type: "IMAGE",
     },
@@ -51,6 +51,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 서울 영등포구",
     cardDetailedText:
       "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
+    media: {
+      name: "career 02",
+      source: {
+        url: "career2.jpeg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2019.03.04 ~ 2019.12.31",
@@ -58,6 +65,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 서울 영등포구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 02",
+      source: {
+        url: "career2.jpeg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2020.03.02 ~ 2020.04.30",
@@ -65,6 +79,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 서울 양천구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 03",
+      source: {
+        url: "career3.svg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2020.05.04 ~ 2020.09.18",
@@ -72,6 +93,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 인천 서구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 04",
+      source: {
+        url: "career4.svg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2020.09.07 ~ 2021.02.26",
@@ -79,6 +107,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 대전 유성구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 05",
+      source: {
+        url: "career5.svg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2021.03.15 ~ 2021.10.29",
@@ -86,6 +121,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 서울 중구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 06",
+      source: {
+        url: "career6.jpg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2021.07.19 ~ 2021.11.19",
@@ -93,6 +135,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 인천 서구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 04",
+      source: {
+        url: "career4.svg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2022.01.15 ~ 2022.03.31",
@@ -100,6 +149,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 서울 강남구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 07",
+      source: {
+        url: "career7.png",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2022.03.30 ~ 2022.06.15",
@@ -107,6 +163,13 @@ export const experiencesData = [
     cardSubtitle: "메타빌드, 서울 중구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 06",
+      source: {
+        url: "career6.jpg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2022.12.05 ~ 2023.07.02",
@@ -114,6 +177,13 @@ export const experiencesData = [
     cardSubtitle: "그렉터, 서울 송파구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 07",
+      source: {
+        url: "career7.svg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2023.07.10 ~ 2023.10.19",
@@ -121,6 +191,13 @@ export const experiencesData = [
     cardSubtitle: "그렉터, 서울 송파구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 08",
+      source: {
+        url: "career8.png",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2023.10.23 ~ 2024.02.07",
@@ -128,6 +205,13 @@ export const experiencesData = [
     cardSubtitle: "그렉터, 서울 송파구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 09",
+      source: {
+        url: "career9.jpg",
+      },
+      type: "IMAGE",
+    },
   },
   {
     title: "2024.02.08 ~ 2024.08.31",
@@ -135,6 +219,13 @@ export const experiencesData = [
     cardSubtitle: "그렉터, 서울 송파구",
     cardDetailedText:
       "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma, and MongoDB. I'm open to full-time opportunities.",
+    media: {
+      name: "career 08",
+      source: {
+        url: "career8.png",
+      },
+      type: "IMAGE",
+    },
   },
 ] as const;
 
