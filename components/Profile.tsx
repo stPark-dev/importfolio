@@ -54,6 +54,7 @@ const Profile = () => {
               initialEyeX={117}
               initialEyeY={153}
               eyeRadius={15}
+              isHovered={isHovered}
             />
             <Eye
               mouseX={mousePosition.x}
@@ -61,6 +62,7 @@ const Profile = () => {
               initialEyeX={173}
               initialEyeY={153}
               eyeRadius={15}
+              isHovered={isHovered}
             />
           </div>
           <Image

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius }: any) => {
+const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius, isHovered }: any) => {
   const eyeRef = useRef<HTMLDivElement>(null);
   const [eyePosition, setEyePosition] = useState({
     x: initialEyeX,
@@ -27,8 +27,8 @@ const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius }: any) => {
   const maxDistance = eyeRadius - 12;
   const distance = Math.min(Math.sqrt(deltaX ** 2 + deltaY ** 2), maxDistance);
 
-  const moveX = Math.cos(angle) * distance;
-  const moveY = Math.sin(angle) * distance;
+  const moveX = isHovered ? 0 : Math.cos(angle) * distance;
+  const moveY = isHovered ? 0 : Math.sin(angle) * distance;
 
   return (
     <motion.div
