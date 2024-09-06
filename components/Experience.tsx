@@ -45,6 +45,7 @@ export default function Experience() {
             }}
             disableToolbar={true}
             items={experiencesData}
+            mediaHeight={250}
             mode="VERTICAL_ALTERNATING"
             itemWidth={150}
           >
@@ -67,6 +68,14 @@ export default function Experience() {
           </Chrono>
         )}
       </section>
+
+      <style jsx global>{`
+        div[class^="MediaWrapper"] div[class^="ImageWrapper"] img {
+          object-fit: contain !important;
+          width: 100%;
+          height: 100%;
+        }
+      `}</style>
     </>
   );
 }
