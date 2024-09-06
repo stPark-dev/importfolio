@@ -49,7 +49,7 @@ export default function Experience() {
             mode="VERTICAL_ALTERNATING"
             itemWidth={150}
           >
-            <div className="chrono-icons">
+            {/* <div className="chrono-icons">
               <Syringe />
               <Handshake />
               <Handshake />
@@ -64,7 +64,7 @@ export default function Experience() {
               <Building />
               <Droplets />
               <Building />
-            </div>
+            </div> */}
           </Chrono>
         )}
       </section>
