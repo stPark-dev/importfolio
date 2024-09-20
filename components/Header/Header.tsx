@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className="full-container py-5 md:py-10 w-full"
+        className="full-container py-5 md:py-10 w-full sticky top-0 z-50"
         style={{ backgroundColor: "#ffffff" }}
       >
         <nav className="flex items-center justify-center space-x-2 md:space-x-5">
