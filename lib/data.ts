@@ -161,8 +161,7 @@ export const experiencesData = [
     title: "2022.03.30 ~ 2022.06.15",
     cardTitle: "서울시 인사정보 시스템 연계 구축",
     cardSubtitle: "메타빌드, 서울 중구",
-    cardDetailedText:
-      "서울시 인사정보 시스템을 타 내부 시스템으로 연계하는 사업을 진행했습니다.",
+    cardDetailedText: "서울시 인사정보 시스템을 타 내부 시스템으로 연계하는 사업을 진행했습니다.",
     media: {
       name: "career 06",
       source: {
