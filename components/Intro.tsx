@@ -16,7 +16,7 @@ const Intro = () => {
 
   return (
     <>
-      <div className="relative w-screen h-[40vh] md:h-[50vh]">
+      <div id="whoami" className="relative w-screen h-[40vh] md:h-[50vh]">
         <Image
           className={`object-cover object-center transition-opacity duration-300 bg-slate-600 ${
             isHovered ? "opacity-50" : "opacity-100"

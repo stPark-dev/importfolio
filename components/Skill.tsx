@@ -1,59 +1,65 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 import SectionHeading from "./SectionHeading";
 
 import { skillsData } from "@/lib/data";
 
-const Skill = () => {
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+// 카드 뒤집기 애니메이션
+const flipVariants = {
+  hidden: { rotateY: 0 },
+  visible: { rotateY: 180 },
+};
 
+const SkillCard = ({ skill }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  return (
+    <div className="perspective">
+      <motion.div
+        className="relative w-64 h-40 m-4 cursor-pointer"
+        onClick={() => setIsFlipped(!isFlipped)}
+        animate={isFlipped ? "visible" : "hidden"}
+        variants={flipVariants}
+        transition={{ duration: 0.6 }}
+        style={{
+          transformStyle: "preserve-3d",
+          transformOrigin: "center",
+        }}
+      >
+        {/* Front of the card */}
+        <motion.div
+          className="absolute w-full h-full bg-blue-500 text-white flex items-center justify-center rounded-lg shadow-lg"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          <h3 className="text-xl font-bold">{skill.name}</h3>
+        </motion.div>
+
+        {/* Back of the card */}
+        <motion.div
+          className="absolute w-full h-full bg-gray-800 text-white flex flex-col items-center justify-center rounded-lg shadow-lg"
+          style={{
+            transform: "rotateY(180deg)",
+            backfaceVisibility: "hidden",
+          }}
+        >
+          <h3 className="text-xl font-bold">{skill.name}</h3>
+          <p className="mt-2 text-sm">{skill.category}</p>
+          <p className="text-sm italic">{skill.usedIn}</p>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
+
+const Skill = () => {
   return (
     <>
       <SectionHeading>My Skill</SectionHeading>
-      {/* Flexbox to arrange cards in an arched layout */}
-      <div id="skill" className="relative flex justify-center items-center mt-10">
-        {skillsData.map((skill, index) => {
-          const rotateDegree = (index - skillsData.length / 2) * 10;
-          const translateY = Math.abs(index - skillsData.length / 2) * 10;
-
-          return (
-            <div
-              key={index}
-              className={`relative cursor-pointer perspective-1000 mx-2 transition-transform duration-300 ${
-                hoverIndex === index ? "z-10" : ""
-              }`}
-              onMouseEnter={() => setHoverIndex(index)}
-              onMouseLeave={() => setHoverIndex(null)}
-              style={{
-                transform: `rotate(${rotateDegree}deg) translateY(${translateY}px) ${
-                  hoverIndex === index ? "translateY(-20px) scale(1.05)" : ""
-                }`,
-              }}
-            >
-              <div className="absolute w-40 h-56 bg-white rounded-lg shadow-lg p-4 flex justify-center items-center text-center">
-                <h2 className="text-xl font-semibold">{skill.name}</h2>
-              </div>
-
-              {/* Hover effect to show card details */}
-              <AnimatePresence>
-                {hoverIndex === index && (
-                  <motion.div
-                    key="back"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    className="absolute w-40 h-56 bg-gray-100 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center text-center"
-                  >
-                    <h2 className="text-xl font-semibold">{skill.name}</h2>
-                    <p className="text-sm">{skill.category}</p>
-                    <p className="text-sm">Used in: {skill.usedIn}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
+      <div className="flex flex-wrap justify-center">
+        {skillsData.map((skill, index) => (
+          <SkillCard key={index} skill={skill} />
+        ))}
       </div>
     </>
   );
