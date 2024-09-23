@@ -11,7 +11,7 @@ const flipVariants = {
   visible: { rotateY: 180 },
 };
 
-const SkillCard = ({ skill }) => {
+const SkillCard = ({ skill }: any) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
