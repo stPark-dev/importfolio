@@ -286,7 +286,7 @@ export const skillsData = [
   },
   {
     category: "UI/CSS Framework",
-    name: "Tailwind",
+    name: "Tailwindcss",
     usedIn: "Gractor",
   },
   {

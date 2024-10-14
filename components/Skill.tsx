@@ -11,8 +11,23 @@ const flipVariants = {
   visible: { rotateY: 180 },
 };
 
+// 카테고리별로 배경 색상을 설정
+const categoryColors: { [key: string]: string } = {
+  "Programming Language": "bg-blue-500",
+  "Backend Framework/Runtime": "bg-green-500",
+  "Frontend Framework/Library": "bg-purple-500",
+  "State Management": "bg-yellow-500",
+  "Version Control": "bg-red-500",
+  "UI/CSS Framework": "bg-pink-500",
+  Database: "bg-indigo-500",
+  "Animation Library": "bg-orange-500",
+};
+
 const SkillCard = ({ skill }: any) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  // 해당 카테고리의 색상을 불러옵니다. 없을 경우 기본 색상은 파란색으로 설정합니다.
+  const cardFrontColor = categoryColors[skill.category] || "bg-blue-500";
 
   return (
     <div className="perspective">
@@ -28,7 +43,7 @@ const SkillCard = ({ skill }: any) => {
         }}
       >
         <motion.div
-          className="absolute w-full h-full bg-blue-500 text-white flex items-center justify-center rounded-lg shadow-lg"
+          className={`absolute w-full h-full ${cardFrontColor} text-white flex items-center justify-center rounded-lg shadow-lg`}
           style={{ backfaceVisibility: "hidden" }}
         >
           <h3 className="text-xl font-bold">{skill.name}</h3>
