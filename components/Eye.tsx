@@ -12,14 +12,7 @@ interface EyeProps {
   isHovered: boolean;
 }
 
-const Eye = ({
-  mouseX,
-  mouseY,
-  initialEyeX,
-  initialEyeY,
-  eyeRadius,
-  isHovered,
-}: EyeProps) => {
+const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius, isHovered }: EyeProps) => {
   const eyeRef = useRef<HTMLDivElement>(null);
   const pupilRef = useRef<HTMLDivElement>(null);
   const [eyePosition, setEyePosition] = useState({

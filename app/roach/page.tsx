@@ -640,9 +640,7 @@ const RoachVolleyball: React.FC = () => {
           <p className="mb-2 text-lg">
             <strong>Controls:</strong> ← → Arrow keys to move, Spacebar to jump
           </p>
-          <p className="text-md opacity-80">
-            First to {WIN_SCORE} points wins! Don't let the ball hit your side of the court!
-          </p>
+          <p className="text-md opacity-80">First to {WIN_SCORE} points wins!</p>
         </div>
 
         {/* 게임 오버 모달 */}
