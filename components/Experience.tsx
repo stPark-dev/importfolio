@@ -34,14 +34,14 @@ export default function Experience() {
         {isClient && (
           <Chrono
             theme={{
-              primary: "#BB9AF7",
-              secondary: "333333",
-              cardBgColor: "#FFFFFF",
-              titleColor: "black",
-              titleColorActive: "#BB9AF7",
-              cardTitleColor: "black",
-              subtitleColor: "white",
-              iconBackgroundColor: "#f0f0f0",
+              primary: "#722F37", // autumn-wine
+              secondary: "#8B6239", // autumn-chocolate
+              cardBgColor: "#D4C4B0", // autumn-cream
+              titleColor: "#4A2C17", // autumn-darkBrown
+              titleColorActive: "#722F37", // autumn-wine
+              cardTitleColor: "#5D0000", // autumn-maroon
+              subtitleColor: "#D4C4B0", // autumn-cream
+              iconBackgroundColor: "#C8AA88", // autumn-sand
             }}
             disableToolbar={true}
             items={experiencesData}

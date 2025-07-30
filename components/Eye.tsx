@@ -3,8 +3,25 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius, isHovered }: any) => {
+interface EyeProps {
+  mouseX: number;
+  mouseY: number;
+  initialEyeX: number;
+  initialEyeY: number;
+  eyeRadius: number;
+  isHovered: boolean;
+}
+
+const Eye = ({
+  mouseX,
+  mouseY,
+  initialEyeX,
+  initialEyeY,
+  eyeRadius,
+  isHovered,
+}: EyeProps) => {
   const eyeRef = useRef<HTMLDivElement>(null);
+  const pupilRef = useRef<HTMLDivElement>(null);
   const [eyePosition, setEyePosition] = useState({
     x: initialEyeX,
     y: initialEyeY,
@@ -49,6 +66,7 @@ const Eye = ({ mouseX, mouseY, initialEyeX, initialEyeY, eyeRadius, isHovered }:
       }}
     >
       <motion.div
+        ref={pupilRef}
         className="pupil"
         style={{
           width: 10,

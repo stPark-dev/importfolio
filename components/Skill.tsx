@@ -11,23 +11,23 @@ const flipVariants = {
   visible: { rotateY: 180 },
 };
 
-// 카테고리별로 배경 색상을 설정
+// 카테고리별로 배경 색상을 설정 - Dark Autumn 팔레트
 const categoryColors: { [key: string]: string } = {
-  "Programming Language": "bg-blue-500",
-  "Backend Framework/Runtime": "bg-green-500",
-  "Frontend Framework/Library": "bg-purple-500",
-  "State Management": "bg-yellow-500",
-  "Version Control": "bg-red-500",
-  "UI/CSS Framework": "bg-pink-500",
-  Database: "bg-indigo-500",
-  "Animation Library": "bg-orange-500",
+  "Programming Language": "bg-autumn-wine",
+  "Backend Framework/Runtime": "bg-autumn-forest",
+  "Frontend Framework/Library": "bg-autumn-plum",
+  "State Management": "bg-autumn-mustard",
+  "Version Control": "bg-autumn-brick",
+  "UI/CSS Framework": "bg-autumn-rust",
+  Database: "bg-autumn-midnight",
+  "Animation Library": "bg-autumn-terracotta",
 };
 
 const SkillCard = ({ skill }: any) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // 해당 카테고리의 색상을 불러옵니다. 없을 경우 기본 색상은 파란색으로 설정합니다.
-  const cardFrontColor = categoryColors[skill.category] || "bg-blue-500";
+  // 해당 카테고리의 색상을 불러옵니다. 없을 경우 기본 색상은 와인색으로 설정합니다.
+  const cardFrontColor = categoryColors[skill.category] || "bg-autumn-wine";
 
   return (
     <div className="perspective">
@@ -43,22 +43,22 @@ const SkillCard = ({ skill }: any) => {
         }}
       >
         <motion.div
-          className={`absolute w-full h-full ${cardFrontColor} text-white flex items-center justify-center rounded-lg shadow-lg`}
+          className={`absolute w-full h-full ${cardFrontColor} text-autumn-cream flex items-center justify-center rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300`}
           style={{ backfaceVisibility: "hidden" }}
         >
-          <h3 className="text-xl font-bold">{skill.name}</h3>
+          <h3 className="text-xl font-bold drop-shadow-md">{skill.name}</h3>
         </motion.div>
 
         <motion.div
-          className="absolute w-full h-full bg-gray-800 text-white flex flex-col items-center justify-center rounded-lg shadow-lg"
+          className="absolute w-full h-full bg-autumn-espresso text-autumn-cream flex flex-col items-center justify-center rounded-lg shadow-xl border-2 border-autumn-bronze/20"
           style={{
             transform: "rotateY(180deg)",
             backfaceVisibility: "hidden",
           }}
         >
-          <h3 className="text-xl font-bold text-center">{skill.name}</h3>
-          <p className="mt-2 text-sm text-center">{skill.category}</p>
-          <p className="text-sm italic text-center">{skill.usedIn}</p>
+          <h3 className="text-xl font-bold text-center text-autumn-sand">{skill.name}</h3>
+          <p className="mt-2 text-sm text-center text-autumn-camel">{skill.category}</p>
+          <p className="text-sm italic text-center text-autumn-amber">{skill.usedIn}</p>
         </motion.div>
       </motion.div>
     </div>
@@ -67,7 +67,7 @@ const SkillCard = ({ skill }: any) => {
 
 const Skill = () => {
   return (
-    <div id="skill">
+    <div id="skill" className="py-10">
       <SectionHeading>My Skill</SectionHeading>
       <div className="flex flex-wrap justify-center">
         {skillsData.map((skill, index) => (

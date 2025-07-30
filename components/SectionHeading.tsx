@@ -26,7 +26,9 @@ type SectionHeadingProps = {
 
 export default function SectionHeading({ children }: SectionHeadingProps) {
   return (
-    <h2 className={`text-5xl font-medium capitalize mb-8 text-center ${poppins.className}`}>
+    <h2
+      className={`text-5xl font-medium capitalize mb-8 text-center text-autumn-wine ${poppins.className}`}
+    >
       {children}
     </h2>
   );

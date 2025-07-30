@@ -20,7 +20,10 @@ const Profile = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      // 실시간 마우스 위치 로깅
+      // console.log('Mouse position:', { x: e.clientX, y: e.clientY });
     };
+
 
     window.addEventListener("mousemove", handleMouseMove);
 
@@ -37,8 +40,12 @@ const Profile = () => {
         onMouseLeave={() => setIsHovered(false)}
         animate={
           isHovered
-            ? { y: [0, -10, 0], boxShadow: "0px 20px 30px rgba(0, 0, 0, 0.3)" }
-            : { y: 0, boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.1)" }
+            ? {
+                y: [0, -10, 0],
+                boxShadow: "0px 25px 40px rgba(114, 47, 55, 0.4)",
+                rotate: [0, 1, -1, 0],
+              }
+            : { y: 0, boxShadow: "0px 10px 20px rgba(74, 44, 23, 0.2)", rotate: 0 }
         }
         transition={{
           duration: 1,
@@ -47,7 +54,7 @@ const Profile = () => {
         }}
       >
         <div className="relative">
-          <div className="absolute z-0 inset-0 pointer-events-none">
+          <div className="absolute z-0 inset-0">
             <Eye
               mouseX={mousePosition.x}
               mouseY={mousePosition.y}
@@ -74,26 +81,30 @@ const Profile = () => {
           />
         </div>
       </motion.div>
-      <div className={`${profileClassName} bg-white shadow-lg rounded-lg p-4 my-4`}>
-        <div className="flex items-center justify-center text-lg text-center">
-          <User className="mr-2" /> 박성태
+
+
+      <div
+        className={`${profileClassName} bg-autumn-cream shadow-xl rounded-lg p-6 my-8 border-2 border-autumn-bronze/20`}
+      >
+        <div className="flex items-center justify-center text-lg text-center text-autumn-espresso hover:text-autumn-wine transition-colors duration-300">
+          <User className="mr-2 text-autumn-rust" /> 박성태
         </div>
-        <div className="flex items-center justify-center text-lg text-center">
-          <Mail className="mr-2" /> dmc6618@gmail.com
+        <div className="flex items-center justify-center text-lg text-center text-autumn-espresso hover:text-autumn-wine transition-colors duration-300">
+          <Mail className="mr-2 text-autumn-rust" /> dmc6618@gmail.com
         </div>
-        <div className="flex items-center justify-center text-lg text-center">
-          <MapPin className="mr-2" /> 서울
+        <div className="flex items-center justify-center text-lg text-center text-autumn-espresso hover:text-autumn-wine transition-colors duration-300">
+          <MapPin className="mr-2 text-autumn-rust" /> 서울
         </div>
-        <div className="flex items-center justify-center text-lg text-center">
-          <Phone className="mr-2" /> 010-6335-6618
+        <div className="flex items-center justify-center text-lg text-center text-autumn-espresso hover:text-autumn-wine transition-colors duration-300">
+          <Phone className="mr-2 text-autumn-rust" /> 010-6335-6618
         </div>
-        <div className="flex items-center justify-center text-lg text-center">
-          <Pencil className="mr-2" /> 국민대학교
+        <div className="flex items-center justify-center text-lg text-center text-autumn-espresso hover:text-autumn-wine transition-colors duration-300">
+          <Pencil className="mr-2 text-autumn-rust" /> 국민대학교
           <br />
           (경영정보 정보시스템전공)
         </div>
-        <div className="flex items-center justify-center text-lg text-center">
-          <Cake className="mr-2" /> 1993. 01. 10
+        <div className="flex items-center justify-center text-lg text-center text-autumn-espresso hover:text-autumn-wine transition-colors duration-300">
+          <Cake className="mr-2 text-autumn-rust" /> 1993. 01. 10
         </div>
       </div>
     </div>
