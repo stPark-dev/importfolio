@@ -24,7 +24,6 @@ const Profile = () => {
       // console.log('Mouse position:', { x: e.clientX, y: e.clientY });
     };
 
-
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
@@ -81,7 +80,6 @@ const Profile = () => {
           />
         </div>
       </motion.div>
-
 
       <div
         className={`${profileClassName} bg-autumn-cream shadow-xl rounded-lg p-6 my-8 border-2 border-autumn-bronze/20`}

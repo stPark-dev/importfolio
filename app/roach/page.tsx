@@ -60,7 +60,7 @@ const RoachVolleyball: React.FC = () => {
   const keysRef = useRef<{ [key: string]: boolean }>({});
   const spriteImageRef = useRef<HTMLImageElement>();
   const countdownStartTimeRef = useRef<number>(0);
-  
+
   // 게임 상태
   const [gameState, setGameState] = useState<GameState>({
     playerScore: 0,
@@ -83,7 +83,10 @@ const RoachVolleyball: React.FC = () => {
   });
 
   const cpuRef = useRef<Roach>({
-    position: { x: CANVAS_WIDTH - 80 - ROACH_WIDTH, y: CANVAS_HEIGHT - GROUND_HEIGHT - ROACH_HEIGHT },
+    position: {
+      x: CANVAS_WIDTH - 80 - ROACH_WIDTH,
+      y: CANVAS_HEIGHT - GROUND_HEIGHT - ROACH_HEIGHT,
+    },
     velocity: { x: 0, y: 0 },
     onGround: true,
     animFrame: 0,
@@ -106,11 +109,14 @@ const RoachVolleyball: React.FC = () => {
   }, []);
 
   // 키보드 이벤트 핸들러
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (!gameState.gameActive) return; // 게임이 활성화되지 않았으면 조작 불가
-    keysRef.current[e.code] = true;
-    e.preventDefault();
-  }, [gameState.gameActive]);
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (!gameState.gameActive) return; // 게임이 활성화되지 않았으면 조작 불가
+      keysRef.current[e.code] = true;
+      e.preventDefault();
+    },
+    [gameState.gameActive]
+  );
 
   const handleKeyUp = useCallback((e: KeyboardEvent) => {
     keysRef.current[e.code] = false;
@@ -120,7 +126,7 @@ const RoachVolleyball: React.FC = () => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
-    
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
@@ -130,7 +136,7 @@ const RoachVolleyball: React.FC = () => {
   // 카운트다운 시작 함수
   const startCountdown = useCallback(() => {
     countdownStartTimeRef.current = Date.now();
-    setGameState(prev => ({
+    setGameState((prev) => ({
       ...prev,
       countdown: 3,
       isCountingDown: true,
@@ -161,7 +167,10 @@ const RoachVolleyball: React.FC = () => {
     };
 
     cpuRef.current = {
-      position: { x: CANVAS_WIDTH - 80 - ROACH_WIDTH, y: CANVAS_HEIGHT - GROUND_HEIGHT - ROACH_HEIGHT },
+      position: {
+        x: CANVAS_WIDTH - 80 - ROACH_WIDTH,
+        y: CANVAS_HEIGHT - GROUND_HEIGHT - ROACH_HEIGHT,
+      },
       velocity: { x: 0, y: 0 },
       onGround: true,
       animFrame: 0,
@@ -179,46 +188,49 @@ const RoachVolleyball: React.FC = () => {
   }, [startCountdown]);
 
   // 점수 업데이트
-  const updateScore = useCallback((side: 'left' | 'right') => {
-    setGameState(prev => {
-      const newState = { ...prev };
-      if (side === 'left') {
-        newState.cpuScore += 1;
-      } else {
-        newState.playerScore += 1;
-      }
-      
-      if (newState.playerScore >= WIN_SCORE) {
-        newState.gameOver = true;
-        newState.winner = "🎉 Player Wins!";
-        newState.gameActive = false;
-        newState.isCountingDown = false;
-      } else if (newState.cpuScore >= WIN_SCORE) {
-        newState.gameOver = true;
-        newState.winner = "💻 CPU Wins!";
-        newState.gameActive = false;
-        newState.isCountingDown = false;
-      } else {
-        // 게임 계속 - 공 리셋 후 카운트다운
-        newState.gameActive = false;
-        newState.isCountingDown = true;
-        newState.countdown = 3;
-      }
-      
-      return newState;
-    });
+  const updateScore = useCallback(
+    (side: "left" | "right") => {
+      setGameState((prev) => {
+        const newState = { ...prev };
+        if (side === "left") {
+          newState.cpuScore += 1;
+        } else {
+          newState.playerScore += 1;
+        }
 
-    // 공 리셋
-    ballRef.current = {
-      position: { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 - 100 },
-      velocity: { x: Math.random() > 0.5 ? 2 : -2, y: 0 },
-    };
+        if (newState.playerScore >= WIN_SCORE) {
+          newState.gameOver = true;
+          newState.winner = "🎉 Player Wins!";
+          newState.gameActive = false;
+          newState.isCountingDown = false;
+        } else if (newState.cpuScore >= WIN_SCORE) {
+          newState.gameOver = true;
+          newState.winner = "💻 CPU Wins!";
+          newState.gameActive = false;
+          newState.isCountingDown = false;
+        } else {
+          // 게임 계속 - 공 리셋 후 카운트다운
+          newState.gameActive = false;
+          newState.isCountingDown = true;
+          newState.countdown = 3;
+        }
 
-    // 게임이 끝나지 않았으면 1초 후 카운트다운 시작
-    if (!gameState.gameOver) {
-      setTimeout(startCountdown, 1000);
-    }
-  }, [gameState.gameOver, startCountdown]);
+        return newState;
+      });
+
+      // 공 리셋
+      ballRef.current = {
+        position: { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 - 100 },
+        velocity: { x: Math.random() > 0.5 ? 2 : -2, y: 0 },
+      };
+
+      // 게임이 끝나지 않았으면 1초 후 카운트다운 시작
+      if (!gameState.gameOver) {
+        setTimeout(startCountdown, 1000);
+      }
+    },
+    [gameState.gameOver, startCountdown]
+  );
 
   // 충돌 감지 함수
   const checkBallRoachCollision = (ball: Ball, roach: Roach): boolean => {
@@ -232,8 +244,12 @@ const RoachVolleyball: React.FC = () => {
     const roachTop = roach.position.y;
     const roachBottom = roach.position.y + ROACH_HEIGHT;
 
-    return ballLeft < roachRight && ballRight > roachLeft && 
-           ballTop < roachBottom && ballBottom > roachTop;
+    return (
+      ballLeft < roachRight &&
+      ballRight > roachLeft &&
+      ballTop < roachBottom &&
+      ballBottom > roachTop
+    );
   };
 
   // 게임 업데이트 로직
@@ -251,7 +267,10 @@ const RoachVolleyball: React.FC = () => {
       player.facingRight = false;
       playerMoving = true;
     }
-    if (keysRef.current["ArrowRight"] && player.position.x < CANVAS_WIDTH / 2 - NET_WIDTH / 2 - ROACH_WIDTH - 10) {
+    if (
+      keysRef.current["ArrowRight"] &&
+      player.position.x < CANVAS_WIDTH / 2 - NET_WIDTH / 2 - ROACH_WIDTH - 10
+    ) {
       player.position.x += MOVE_SPEED;
       player.facingRight = true;
       playerMoving = true;
@@ -265,31 +284,40 @@ const RoachVolleyball: React.FC = () => {
     const ballX = ball.position.x;
     const cpuCenterX = cpu.position.x + ROACH_WIDTH / 2;
     let cpuMoving = false;
-    
-    if (ballX > CANVAS_WIDTH / 2) { // 공이 CPU 쪽에 있을 때만 반응
+
+    if (ballX > CANVAS_WIDTH / 2) {
+      // 공이 CPU 쪽에 있을 때만 반응
       if (ballX > cpuCenterX + 30 && cpu.position.x < CANVAS_WIDTH - ROACH_WIDTH) {
         cpu.position.x += MOVE_SPEED * 0.8;
         cpu.facingRight = true;
         cpuMoving = true;
-      } else if (ballX < cpuCenterX - 30 && cpu.position.x > CANVAS_WIDTH / 2 + NET_WIDTH / 2 + 10) {
+      } else if (
+        ballX < cpuCenterX - 30 &&
+        cpu.position.x > CANVAS_WIDTH / 2 + NET_WIDTH / 2 + 10
+      ) {
         cpu.position.x -= MOVE_SPEED * 0.8;
         cpu.facingRight = false;
         cpuMoving = true;
       }
-      
+
       // CPU 점프 조건
-      if (Math.abs(ballX - cpuCenterX) < 100 && ball.position.y < cpu.position.y + 50 && cpu.onGround && ball.velocity.y > -5) {
+      if (
+        Math.abs(ballX - cpuCenterX) < 100 &&
+        ball.position.y < cpu.position.y + 50 &&
+        cpu.onGround &&
+        ball.velocity.y > -5
+      ) {
         cpu.velocity.y = JUMP_POWER * 0.9;
         cpu.onGround = false;
       }
     }
 
     // 바퀴벌레 물리 업데이트
-    [player, cpu].forEach(roach => {
+    [player, cpu].forEach((roach) => {
       // 중력 적용
       roach.velocity.y += GRAVITY;
       roach.position.y += roach.velocity.y;
-      
+
       // 바닥 충돌
       const groundY = CANVAS_HEIGHT - GROUND_HEIGHT - ROACH_HEIGHT;
       if (roach.position.y >= groundY) {
@@ -302,10 +330,10 @@ const RoachVolleyball: React.FC = () => {
     // 애니메이션 프레임 업데이트
     player.animSpeed = playerMoving ? 0.3 : 0.1;
     cpu.animSpeed = cpuMoving ? 0.25 : 0.1;
-    
+
     player.animFrame += player.animSpeed;
     if (player.animFrame >= 6) player.animFrame = 0;
-    
+
     cpu.animFrame += cpu.animSpeed;
     if (cpu.animFrame >= 6) cpu.animFrame = 0;
 
@@ -317,9 +345,12 @@ const RoachVolleyball: React.FC = () => {
     // 공 경계 충돌
     if (ball.position.x <= BALL_RADIUS || ball.position.x >= CANVAS_WIDTH - BALL_RADIUS) {
       ball.velocity.x *= -BALL_BOUNCE;
-      ball.position.x = Math.max(BALL_RADIUS, Math.min(CANVAS_WIDTH - BALL_RADIUS, ball.position.x));
+      ball.position.x = Math.max(
+        BALL_RADIUS,
+        Math.min(CANVAS_WIDTH - BALL_RADIUS, ball.position.x)
+      );
     }
-    
+
     if (ball.position.y <= BALL_RADIUS) {
       ball.velocity.y *= -BALL_BOUNCE;
       ball.position.y = BALL_RADIUS;
@@ -327,8 +358,11 @@ const RoachVolleyball: React.FC = () => {
 
     // 네트 충돌
     const netX = CANVAS_WIDTH / 2 - NET_WIDTH / 2;
-    if (ball.position.x >= netX - BALL_RADIUS && ball.position.x <= netX + NET_WIDTH + BALL_RADIUS && 
-        ball.position.y >= CANVAS_HEIGHT - GROUND_HEIGHT - NET_HEIGHT - BALL_RADIUS) {
+    if (
+      ball.position.x >= netX - BALL_RADIUS &&
+      ball.position.x <= netX + NET_WIDTH + BALL_RADIUS &&
+      ball.position.y >= CANVAS_HEIGHT - GROUND_HEIGHT - NET_HEIGHT - BALL_RADIUS
+    ) {
       if (ball.velocity.x > 0) {
         ball.position.x = netX - BALL_RADIUS;
       } else {
@@ -344,7 +378,7 @@ const RoachVolleyball: React.FC = () => {
       ball.velocity.y = -10;
       ball.position.y = player.position.y - BALL_RADIUS - 1;
     }
-    
+
     if (checkBallRoachCollision(ball, cpu)) {
       const hitX = ball.position.x - (cpu.position.x + ROACH_WIDTH / 2);
       ball.velocity.x = hitX * 0.15 + (cpu.facingRight ? 4 : -4);
@@ -355,9 +389,9 @@ const RoachVolleyball: React.FC = () => {
     // 득점 조건 체크
     if (ball.position.y >= CANVAS_HEIGHT - GROUND_HEIGHT - BALL_RADIUS) {
       if (ball.position.x < CANVAS_WIDTH / 2) {
-        updateScore('left'); // CPU 득점
+        updateScore("left"); // CPU 득점
       } else {
-        updateScore('right'); // Player 득점
+        updateScore("right"); // Player 득점
       }
     }
   }, [gameState.gameActive, updateScore]);
@@ -366,7 +400,7 @@ const RoachVolleyball: React.FC = () => {
   const render = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -376,11 +410,11 @@ const RoachVolleyball: React.FC = () => {
     gradient.addColorStop(1, "#16213e");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    
+
     // 바닥
     ctx.fillStyle = "#8B4513";
     ctx.fillRect(0, CANVAS_HEIGHT - GROUND_HEIGHT, CANVAS_WIDTH, GROUND_HEIGHT);
-    
+
     // 바닥 라인
     ctx.strokeStyle = "#FFFFFF";
     ctx.lineWidth = 2;
@@ -388,14 +422,14 @@ const RoachVolleyball: React.FC = () => {
     ctx.moveTo(0, CANVAS_HEIGHT - GROUND_HEIGHT);
     ctx.lineTo(CANVAS_WIDTH, CANVAS_HEIGHT - GROUND_HEIGHT);
     ctx.stroke();
-    
+
     // 네트
     const netX = CANVAS_WIDTH / 2 - NET_WIDTH / 2;
     const netY = CANVAS_HEIGHT - GROUND_HEIGHT - NET_HEIGHT;
-    
+
     ctx.fillStyle = "#F5F5F5";
     ctx.fillRect(netX, netY, NET_WIDTH, NET_HEIGHT);
-    
+
     // 네트 격자
     ctx.strokeStyle = "#CCCCCC";
     ctx.lineWidth = 1;
@@ -414,24 +448,36 @@ const RoachVolleyball: React.FC = () => {
         ctx.fillRect(roach.position.x, roach.position.y, ROACH_WIDTH, ROACH_HEIGHT);
         return;
       }
-      
+
       const frameIndex = Math.floor(roach.animFrame) % 6;
       const spriteWidth = 100; // 600px ÷ 6 = 100px per frame
       const spriteHeight = spriteImageRef.current.height;
-      
+
       ctx.save();
       if (!roach.facingRight) {
         ctx.scale(-1, 1);
         ctx.drawImage(
           spriteImageRef.current,
-          frameIndex * spriteWidth, 0, spriteWidth, spriteHeight,
-          -roach.position.x - ROACH_WIDTH, roach.position.y, ROACH_WIDTH, ROACH_HEIGHT
+          frameIndex * spriteWidth,
+          0,
+          spriteWidth,
+          spriteHeight,
+          -roach.position.x - ROACH_WIDTH,
+          roach.position.y,
+          ROACH_WIDTH,
+          ROACH_HEIGHT
         );
       } else {
         ctx.drawImage(
           spriteImageRef.current,
-          frameIndex * spriteWidth, 0, spriteWidth, spriteHeight,
-          roach.position.x, roach.position.y, ROACH_WIDTH, ROACH_HEIGHT
+          frameIndex * spriteWidth,
+          0,
+          spriteWidth,
+          spriteHeight,
+          roach.position.x,
+          roach.position.y,
+          ROACH_WIDTH,
+          ROACH_HEIGHT
         );
       }
       ctx.restore();
@@ -444,17 +490,21 @@ const RoachVolleyball: React.FC = () => {
     // 공 그리기
     const ball = ballRef.current;
     const ballGradient = ctx.createRadialGradient(
-      ball.position.x - 3, ball.position.y - 3, 0,
-      ball.position.x, ball.position.y, BALL_RADIUS
+      ball.position.x - 3,
+      ball.position.y - 3,
+      0,
+      ball.position.x,
+      ball.position.y,
+      BALL_RADIUS
     );
     ballGradient.addColorStop(0, "#FFD700");
     ballGradient.addColorStop(1, "#FFA500");
-    
+
     ctx.fillStyle = ballGradient;
     ctx.beginPath();
     ctx.arc(ball.position.x, ball.position.y, BALL_RADIUS, 0, Math.PI * 2);
     ctx.fill();
-    
+
     // 공 하이라이트
     ctx.fillStyle = "#FFFFFF";
     ctx.beginPath();
@@ -465,10 +515,10 @@ const RoachVolleyball: React.FC = () => {
     if (gameState.isCountingDown) {
       ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-      
+
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      
+
       if (gameState.countdown > 0) {
         // 숫자 카운트다운
         ctx.fillStyle = "#FFFFFF";
@@ -477,7 +527,7 @@ const RoachVolleyball: React.FC = () => {
         ctx.lineWidth = 4;
         ctx.strokeText(gameState.countdown.toString(), CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 50);
         ctx.fillText(gameState.countdown.toString(), CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 50);
-        
+
         ctx.fillStyle = "#FFD700";
         ctx.font = "bold 48px Arial";
         ctx.fillText("GET READY!", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 80);
@@ -499,20 +549,20 @@ const RoachVolleyball: React.FC = () => {
     if (gameState.isCountingDown && countdownStartTimeRef.current > 0) {
       const elapsed = Date.now() - countdownStartTimeRef.current;
       const newCountdown = Math.max(0, 3 - Math.floor(elapsed / 1000));
-      
+
       if (newCountdown !== gameState.countdown) {
         if (newCountdown === 0) {
           // GO! 표시 후 게임 시작
-          setGameState(prev => ({ ...prev, countdown: 0 }));
+          setGameState((prev) => ({ ...prev, countdown: 0 }));
           setTimeout(() => {
-            setGameState(prev => ({
+            setGameState((prev) => ({
               ...prev,
               isCountingDown: false,
               gameActive: true,
             }));
           }, 1000); // GO! 메시지를 1초간 표시
         } else {
-          setGameState(prev => ({ ...prev, countdown: newCountdown }));
+          setGameState((prev) => ({ ...prev, countdown: newCountdown }));
         }
       }
     }
@@ -526,7 +576,7 @@ const RoachVolleyball: React.FC = () => {
   // 게임 시작
   useEffect(() => {
     animationFrameRef.current = requestAnimationFrame(gameLoop);
-    
+
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -599,9 +649,7 @@ const RoachVolleyball: React.FC = () => {
         {gameState.gameOver && (
           <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
             <div className="bg-autumn-cream rounded-xl p-10 text-center shadow-2xl max-w-md w-full mx-4">
-              <h2 className="text-4xl font-bold text-autumn-espresso mb-6">
-                {gameState.winner}
-              </h2>
+              <h2 className="text-4xl font-bold text-autumn-espresso mb-6">{gameState.winner}</h2>
               <p className="text-xl text-autumn-espresso mb-6">
                 Final Score: Player {gameState.playerScore} - {gameState.cpuScore} CPU
               </p>
