@@ -61,13 +61,13 @@ const RoachVolleyball: React.FC = () => {
   const keysRef = useRef<{ [key: string]: boolean }>({});
   const spriteImageRef = useRef<HTMLImageElement>();
   const countdownStartTimeRef = useRef<number>(0);
+  const lastUpdateTimeRef = useRef<number>(0);
   const touchControlsRef = useRef<{ left: boolean; right: boolean; jump: boolean }>({
     left: false,
     right: false,
     jump: false,
   });
   const [canvasSize, setCanvasSize] = useState({ width: BASE_WIDTH, height: BASE_HEIGHT });
-  const [scale, setScale] = useState(1);
 
   // 게임 상태
   const [gameState, setGameState] = useState<GameState>({
@@ -123,13 +123,12 @@ const RoachVolleyball: React.FC = () => {
 
       const container = containerRef.current;
       const containerWidth = container.clientWidth;
-      const containerHeight = window.innerHeight * 0.6; // 화면 높이의 60%
+      const containerHeight = window.innerHeight * 0.75; // 화면 높이의 75%로 변경
 
       const scaleX = containerWidth / BASE_WIDTH;
       const scaleY = containerHeight / BASE_HEIGHT;
-      const newScale = Math.min(scaleX, scaleY, 1); // 최대 원본 크기까지만
+      const newScale = Math.min(scaleX, scaleY); // 최대 제한 제거
 
-      setScale(newScale);
       setCanvasSize({
         width: BASE_WIDTH * newScale,
         height: BASE_HEIGHT * newScale,
@@ -304,142 +303,157 @@ const RoachVolleyball: React.FC = () => {
   };
 
   // 게임 업데이트 로직
-  const updateGame = useCallback(() => {
-    if (!gameState.gameActive) return;
+  const updateGame = useCallback(
+    (deltaTime: number) => {
+      if (!gameState.gameActive) return;
 
-    const player = playerRef.current;
-    const cpu = cpuRef.current;
-    const ball = ballRef.current;
+      // 프레임 속도 제한을 위한 시간 스케일 (60FPS 기준)
+      const timeScale = Math.min(deltaTime / 16.67, 2); // 최대 2배속까지만 허용
 
-    // 플레이어 입력 처리 (키보드 + 터치)
-    let playerMoving = false;
-    if ((keysRef.current["ArrowLeft"] || touchControlsRef.current.left) && player.position.x > 0) {
-      player.position.x -= MOVE_SPEED;
-      player.facingRight = false;
-      playerMoving = true;
-    }
-    if (
-      (keysRef.current["ArrowRight"] || touchControlsRef.current.right) &&
-      player.position.x < BASE_WIDTH / 2 - NET_WIDTH / 2 - ROACH_WIDTH - 10
-    ) {
-      player.position.x += MOVE_SPEED;
-      player.facingRight = true;
-      playerMoving = true;
-    }
-    if ((keysRef.current["Space"] || touchControlsRef.current.jump) && player.onGround) {
-      player.velocity.y = JUMP_POWER;
-      player.onGround = false;
-    }
+      const player = playerRef.current;
+      const cpu = cpuRef.current;
+      const ball = ballRef.current;
 
-    // CPU AI - 간단한 추적 로직
-    const ballX = ball.position.x;
-    const cpuCenterX = cpu.position.x + ROACH_WIDTH / 2;
-    let cpuMoving = false;
-
-    if (ballX > BASE_WIDTH / 2) {
-      // 공이 CPU 쪽에 있을 때만 반응
-      if (ballX > cpuCenterX + 30 && cpu.position.x < BASE_WIDTH - ROACH_WIDTH) {
-        cpu.position.x += MOVE_SPEED * 0.8;
-        cpu.facingRight = true;
-        cpuMoving = true;
-      } else if (ballX < cpuCenterX - 30 && cpu.position.x > BASE_WIDTH / 2 + NET_WIDTH / 2 + 10) {
-        cpu.position.x -= MOVE_SPEED * 0.8;
-        cpu.facingRight = false;
-        cpuMoving = true;
-      }
-
-      // CPU 점프 조건
+      // 플레이어 입력 처리 (키보드 + 터치)
+      let playerMoving = false;
       if (
-        Math.abs(ballX - cpuCenterX) < 100 &&
-        ball.position.y < cpu.position.y + 50 &&
-        cpu.onGround &&
-        ball.velocity.y > -5
+        (keysRef.current["ArrowLeft"] || touchControlsRef.current.left) &&
+        player.position.x > 0
       ) {
-        cpu.velocity.y = JUMP_POWER * 0.9;
-        cpu.onGround = false;
+        player.position.x -= MOVE_SPEED * timeScale;
+        player.facingRight = false;
+        playerMoving = true;
       }
-    }
-
-    // 바퀴벌레 물리 업데이트
-    [player, cpu].forEach((roach) => {
-      // 중력 적용
-      roach.velocity.y += GRAVITY;
-      roach.position.y += roach.velocity.y;
-
-      // 바닥 충돌
-      const groundY = BASE_HEIGHT - GROUND_HEIGHT - ROACH_HEIGHT;
-      if (roach.position.y >= groundY) {
-        roach.position.y = groundY;
-        roach.velocity.y = 0;
-        roach.onGround = true;
+      if (
+        (keysRef.current["ArrowRight"] || touchControlsRef.current.right) &&
+        player.position.x < BASE_WIDTH / 2 - NET_WIDTH / 2 - ROACH_WIDTH - 10
+      ) {
+        player.position.x += MOVE_SPEED * timeScale;
+        player.facingRight = true;
+        playerMoving = true;
       }
-    });
-
-    // 애니메이션 프레임 업데이트
-    player.animSpeed = playerMoving ? 0.3 : 0.1;
-    cpu.animSpeed = cpuMoving ? 0.25 : 0.1;
-
-    player.animFrame += player.animSpeed;
-    if (player.animFrame >= 6) player.animFrame = 0;
-
-    cpu.animFrame += cpu.animSpeed;
-    if (cpu.animFrame >= 6) cpu.animFrame = 0;
-
-    // 공 물리 업데이트
-    ball.position.x += ball.velocity.x;
-    ball.position.y += ball.velocity.y;
-    ball.velocity.y += GRAVITY * 0.4; // 공의 중력은 약하게
-
-    // 공 경계 충돌
-    if (ball.position.x <= BALL_RADIUS || ball.position.x >= BASE_WIDTH - BALL_RADIUS) {
-      ball.velocity.x *= -BALL_BOUNCE;
-      ball.position.x = Math.max(BALL_RADIUS, Math.min(BASE_WIDTH - BALL_RADIUS, ball.position.x));
-    }
-
-    if (ball.position.y <= BALL_RADIUS) {
-      ball.velocity.y *= -BALL_BOUNCE;
-      ball.position.y = BALL_RADIUS;
-    }
-
-    // 네트 충돌
-    const netX = BASE_WIDTH / 2 - NET_WIDTH / 2;
-    if (
-      ball.position.x >= netX - BALL_RADIUS &&
-      ball.position.x <= netX + NET_WIDTH + BALL_RADIUS &&
-      ball.position.y >= BASE_HEIGHT - GROUND_HEIGHT - NET_HEIGHT - BALL_RADIUS
-    ) {
-      if (ball.velocity.x > 0) {
-        ball.position.x = netX - BALL_RADIUS;
-      } else {
-        ball.position.x = netX + NET_WIDTH + BALL_RADIUS;
+      if ((keysRef.current["Space"] || touchControlsRef.current.jump) && player.onGround) {
+        player.velocity.y = JUMP_POWER;
+        player.onGround = false;
       }
-      ball.velocity.x *= -BALL_BOUNCE;
-    }
 
-    // 바퀴벌레와 공 충돌
-    if (checkBallRoachCollision(ball, player)) {
-      const hitX = ball.position.x - (player.position.x + ROACH_WIDTH / 2);
-      ball.velocity.x = hitX * 0.15 + (player.facingRight ? 4 : -4);
-      ball.velocity.y = -10;
-      ball.position.y = player.position.y - BALL_RADIUS - 1;
-    }
+      // CPU AI - 간단한 추적 로직
+      const ballX = ball.position.x;
+      const cpuCenterX = cpu.position.x + ROACH_WIDTH / 2;
+      let cpuMoving = false;
 
-    if (checkBallRoachCollision(ball, cpu)) {
-      const hitX = ball.position.x - (cpu.position.x + ROACH_WIDTH / 2);
-      ball.velocity.x = hitX * 0.15 + (cpu.facingRight ? 4 : -4);
-      ball.velocity.y = -10;
-      ball.position.y = cpu.position.y - BALL_RADIUS - 1;
-    }
+      if (ballX > BASE_WIDTH / 2) {
+        // 공이 CPU 쪽에 있을 때만 반응
+        if (ballX > cpuCenterX + 30 && cpu.position.x < BASE_WIDTH - ROACH_WIDTH) {
+          cpu.position.x += MOVE_SPEED * 0.8 * timeScale;
+          cpu.facingRight = true;
+          cpuMoving = true;
+        } else if (
+          ballX < cpuCenterX - 30 &&
+          cpu.position.x > BASE_WIDTH / 2 + NET_WIDTH / 2 + 10
+        ) {
+          cpu.position.x -= MOVE_SPEED * 0.8 * timeScale;
+          cpu.facingRight = false;
+          cpuMoving = true;
+        }
 
-    // 득점 조건 체크
-    if (ball.position.y >= BASE_HEIGHT - GROUND_HEIGHT - BALL_RADIUS) {
-      if (ball.position.x < BASE_WIDTH / 2) {
-        updateScore("left"); // CPU 득점
-      } else {
-        updateScore("right"); // Player 득점
+        // CPU 점프 조건
+        if (
+          Math.abs(ballX - cpuCenterX) < 100 &&
+          ball.position.y < cpu.position.y + 50 &&
+          cpu.onGround &&
+          ball.velocity.y > -5
+        ) {
+          cpu.velocity.y = JUMP_POWER * 0.9;
+          cpu.onGround = false;
+        }
       }
-    }
-  }, [gameState.gameActive, updateScore]);
+
+      // 바퀴벌레 물리 업데이트
+      [player, cpu].forEach((roach) => {
+        // 중력 적용
+        roach.velocity.y += GRAVITY * timeScale;
+        roach.position.y += roach.velocity.y * timeScale;
+
+        // 바닥 충돌
+        const groundY = BASE_HEIGHT - GROUND_HEIGHT - ROACH_HEIGHT;
+        if (roach.position.y >= groundY) {
+          roach.position.y = groundY;
+          roach.velocity.y = 0;
+          roach.onGround = true;
+        }
+      });
+
+      // 애니메이션 프레임 업데이트
+      player.animSpeed = playerMoving ? 0.3 : 0.1;
+      cpu.animSpeed = cpuMoving ? 0.25 : 0.1;
+
+      player.animFrame += player.animSpeed * timeScale;
+      if (player.animFrame >= 6) player.animFrame = 0;
+
+      cpu.animFrame += cpu.animSpeed * timeScale;
+      if (cpu.animFrame >= 6) cpu.animFrame = 0;
+
+      // 공 물리 업데이트
+      ball.position.x += ball.velocity.x * timeScale;
+      ball.position.y += ball.velocity.y * timeScale;
+      ball.velocity.y += GRAVITY * 0.4 * timeScale; // 공의 중력은 약하게
+
+      // 공 경계 충돌
+      if (ball.position.x <= BALL_RADIUS || ball.position.x >= BASE_WIDTH - BALL_RADIUS) {
+        ball.velocity.x *= -BALL_BOUNCE;
+        ball.position.x = Math.max(
+          BALL_RADIUS,
+          Math.min(BASE_WIDTH - BALL_RADIUS, ball.position.x)
+        );
+      }
+
+      if (ball.position.y <= BALL_RADIUS) {
+        ball.velocity.y *= -BALL_BOUNCE;
+        ball.position.y = BALL_RADIUS;
+      }
+
+      // 네트 충돌
+      const netX = BASE_WIDTH / 2 - NET_WIDTH / 2;
+      if (
+        ball.position.x >= netX - BALL_RADIUS &&
+        ball.position.x <= netX + NET_WIDTH + BALL_RADIUS &&
+        ball.position.y >= BASE_HEIGHT - GROUND_HEIGHT - NET_HEIGHT - BALL_RADIUS
+      ) {
+        if (ball.velocity.x > 0) {
+          ball.position.x = netX - BALL_RADIUS;
+        } else {
+          ball.position.x = netX + NET_WIDTH + BALL_RADIUS;
+        }
+        ball.velocity.x *= -BALL_BOUNCE;
+      }
+
+      // 바퀴벌레와 공 충돌
+      if (checkBallRoachCollision(ball, player)) {
+        const hitX = ball.position.x - (player.position.x + ROACH_WIDTH / 2);
+        ball.velocity.x = hitX * 0.15 + (player.facingRight ? 4 : -4);
+        ball.velocity.y = -10;
+        ball.position.y = player.position.y - BALL_RADIUS - 1;
+      }
+
+      if (checkBallRoachCollision(ball, cpu)) {
+        const hitX = ball.position.x - (cpu.position.x + ROACH_WIDTH / 2);
+        ball.velocity.x = hitX * 0.15 + (cpu.facingRight ? 4 : -4);
+        ball.velocity.y = -10;
+        ball.position.y = cpu.position.y - BALL_RADIUS - 1;
+      }
+
+      // 득점 조건 체크
+      if (ball.position.y >= BASE_HEIGHT - GROUND_HEIGHT - BALL_RADIUS) {
+        if (ball.position.x < BASE_WIDTH / 2) {
+          updateScore("left"); // CPU 득점
+        } else {
+          updateScore("right"); // Player 득점
+        }
+      }
+    },
+    [gameState.gameActive, updateScore]
+  );
 
   // 렌더링 함수
   const render = useCallback(() => {
@@ -589,37 +603,48 @@ const RoachVolleyball: React.FC = () => {
   }, [gameState]);
 
   // 게임 루프
-  const gameLoop = useCallback(() => {
-    // 게임이 끝났으면 카운트다운 처리하지 않음
-    if (!gameState.gameOver && gameState.isCountingDown && countdownStartTimeRef.current > 0) {
-      const elapsed = Date.now() - countdownStartTimeRef.current;
-      const newCountdown = Math.max(0, 3 - Math.floor(elapsed / 1000));
+  const gameLoop = useCallback(
+    (currentTime: number) => {
+      // 프레임 시간 계산
+      if (!lastUpdateTimeRef.current) {
+        lastUpdateTimeRef.current = currentTime;
+      }
+      const deltaTime = currentTime - lastUpdateTimeRef.current;
+      lastUpdateTimeRef.current = currentTime;
 
-      if (newCountdown !== gameState.countdown) {
-        if (newCountdown === 0) {
-          // GO! 표시 후 게임 시작
-          setGameState((prev) => ({ ...prev, countdown: 0 }));
-          setTimeout(() => {
-            setGameState((prev) => ({
-              ...prev,
-              isCountingDown: false,
-              gameActive: true,
-            }));
-          }, 1000); // GO! 메시지를 1초간 표시
-        } else {
-          setGameState((prev) => ({ ...prev, countdown: newCountdown }));
+      // 게임이 끝났으면 카운트다운 처리하지 않음
+      if (!gameState.gameOver && gameState.isCountingDown && countdownStartTimeRef.current > 0) {
+        const elapsed = Date.now() - countdownStartTimeRef.current;
+        const newCountdown = Math.max(0, 3 - Math.floor(elapsed / 1000));
+
+        if (newCountdown !== gameState.countdown) {
+          if (newCountdown === 0) {
+            // GO! 표시 후 게임 시작
+            setGameState((prev) => ({ ...prev, countdown: 0 }));
+            setTimeout(() => {
+              setGameState((prev) => ({
+                ...prev,
+                isCountingDown: false,
+                gameActive: true,
+              }));
+            }, 1000); // GO! 메시지를 1초간 표시
+          } else {
+            setGameState((prev) => ({ ...prev, countdown: newCountdown }));
+          }
         }
       }
-    }
 
-    updateGame();
-    render();
+      updateGame(deltaTime);
+      render();
 
-    animationFrameRef.current = requestAnimationFrame(gameLoop);
-  }, [gameState, updateGame, render]);
+      animationFrameRef.current = requestAnimationFrame(gameLoop);
+    },
+    [gameState, updateGame, render]
+  );
 
   // 게임 시작
   useEffect(() => {
+    lastUpdateTimeRef.current = 0;
     animationFrameRef.current = requestAnimationFrame(gameLoop);
 
     return () => {
@@ -676,7 +701,11 @@ const RoachVolleyball: React.FC = () => {
         </div>
 
         {/* 게임 캔버스 */}
-        <div ref={containerRef} className="flex justify-center mb-4 md:mb-6 w-full">
+        <div
+          ref={containerRef}
+          className="flex justify-center mb-4 md:mb-6 w-full"
+          style={{ minHeight: `${canvasSize.height}px` }}
+        >
           <canvas
             ref={canvasRef}
             width={BASE_WIDTH}
@@ -686,6 +715,7 @@ const RoachVolleyball: React.FC = () => {
               width: `${canvasSize.width}px`,
               height: `${canvasSize.height}px`,
               imageRendering: "crisp-edges",
+              maxWidth: "100%",
             }}
           />
         </div>
